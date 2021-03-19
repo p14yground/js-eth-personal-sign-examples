@@ -71,7 +71,7 @@ personalSignButton.addEventListener("click", function (event) {
       const recovered = sigUtil.recoverPersonalSignature(msgParams);
       console.dir({ recovered });
 
-      if (recovered === from) {
+      if (ethUtil.toChecksumAddress(recovered) === ethUtil.toChecksumAddress(from)) {
         console.log("SigUtil Successfully verified signer as " + from);
         window.alert("SigUtil Successfully verified signer as " + from);
       } else {
@@ -161,7 +161,7 @@ personalRecoverTest.addEventListener("click", function (event) {
           if (err) return console.error(err);
           if (result.error) return console.error(result.error);
 
-          if (recovered === from) {
+          if (ethUtil.toChecksumAddress(recovered) === ethUtil.toChecksumAddress(from)) {
             console.log("Successfully ecRecovered signer as " + from);
           } else {
             console.log(
@@ -196,7 +196,7 @@ ethjsPersonalSignButton.addEventListener("click", function (event) {
       return eth.personal_ecRecover(msg, signed);
     })
     .then((recovered) => {
-      if (recovered === from) {
+      if (ethUtil.toChecksumAddress(recovered) === ethUtil.toChecksumAddress(from)) {
         console.log("Ethjs recovered the message signer!");
       } else {
         console.log("Ethjs failed to recover the message signer!");
